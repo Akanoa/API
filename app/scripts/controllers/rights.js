@@ -12,33 +12,48 @@ angular.module('apiApp')
 	
     $scope.models = {
         selected: null,
-        lists: {"A": [], "B": [], "C":[]}
+        paths: [{path: "/test", verb:"get"}],
+		scopes : {"admin" : []}
     };
-
-    // Generate initial model
-    for (var i = 1; i <= 3; ++i) {
-        $scope.models.lists.A.push({label: "Item A" + i});
-        $scope.models.lists.B.push({label: "Item B" + i});
-		$scope.models.lists.C.push({label: "Item C" + i});
-    }
 
     // Model to JSON for demo purpose
     $scope.$watch('models', function(model) {
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
 	
-	$scope.test = function() {
+	$scope.addPathModal = function() {
 		ModalService.showModal({
 			templateUrl: "views/addPath.html",
-			controller: "ModalCtrl"
+			controller: "ModalAddPathCtrl"
 		}).then(function(modal) {
 			//it's a bootstrap element, use 'modal' to show it
 			modal.element.modal();
 			modal.close.then(function(result) {
 				if(result){
-					$scope.models.lists.A.push({label: angular.uppercase(result.verb) +" "+result.path});
+					$scope.models.paths.push(result);
 				}
 			});
 		});
+	};
+
+	
+	$scope.addList = function() {
+		ModalService.showModal({
+			templateUrl: "views/addScopeInRights.html",
+			controller: "ModalAddScopeInRightsCtrl"
+		}).then(function(modal) {
+			//it's a bootstrap element, use 'modal' to show it
+			modal.element.modal();
+			modal.close.then(function(result) {
+				if(result){
+					$scope.models.scopes[result] = [];
+				}
+			});
+		});
+	};
+	
+	
+	$scope.deleteList = function(list){
+		delete $scope.models.scopes[list.listName];
 	};
 });

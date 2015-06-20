@@ -1,5 +1,5 @@
 angular.module('apiApp')
-  .controller('ModalCtrl', function($scope, close) {
+  .controller('ModalAddPathCtrl', function($scope, close) {
 	
 	$scope.verbs = ["get", "post", "put", "delete"];
 	
@@ -13,6 +13,20 @@ angular.module('apiApp')
 			  path : $scope.path
 			}
 		 }
+ 		 close(result, 500);
+  	};
+
+});
+
+angular.module('apiApp')
+  .controller('ModalAddScopeInRightsCtrl', function($scope, close) {
+	
+	$scope.verbs = ["get", "post", "put", "delete"];
+	
+  	$scope.close = function(result) {
+		if(result){
+			result = $scope.scope;
+		}
  		 close(result, 500);
   	};
 
