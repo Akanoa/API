@@ -1,0 +1,39 @@
+<div class="rights simpleDemo">
+	<div class="row">
+		<h1>Rights</h1>
+
+		<div class="col-md-4" ng-repeat="(listName, list) in models.lists">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					{{listName}}
+				</div>
+				<div class="panel-body">
+					<ul dnd-list="list">
+						<!-- The dnd-draggable directive makes an element draggable and will
+							 transfer the object that was assigned to it. If an element was
+							 dragged away, you have to remove it from the original list
+							 yourself using the dnd-moved attribute -->
+						<li ng-repeat="item in list"
+							dnd-draggable="item"
+							dnd-moved="list.splice($index, 1)"
+							dnd-effect-allowed="copy"
+							dnd-selected="models.selected = item"
+							ng-class="{'selected': models.selected === item}"
+							>
+							{{item.label}}
+						</li>
+						<li ng-click="test()">
+							<spna class="glyphicon glyphicon-plus"></spna>
+						</li>
+					</ul>	
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<pre>
+			{{modelAsJson}}
+		</pre>
+	</div>	
+</div>
