@@ -1,93 +1,87 @@
 <div class="rights simpleDemo">
+    <h1>Rights</h1>
 	<div class="row">
-		<h1>Rights</h1>
-		
-		<div class="col-md-6">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-md-10">
-							Paths
-						</div>
-						<div class="col-md-2">
-							<abbr title="Add a new scope" class="glyphicon glyphicon-plus" ng-click="addList()"></abbr>
-						</div>
-					</div>
-				</div>
-				<div class="panel-body">
-					<ul dnd-list="list">
-						<!-- The dnd-draggable directive makes an element draggable and will
-							 transfer the object that was assigned to it. If an element was
-							 dragged away, you have to remove it from the original list
-							 yourself using the dnd-moved attribute -->
-						<li ng-repeat="item in models.paths"
-							dnd-draggable="item"
-							dnd-moved="list.splice($index, 1)"
-							dnd-effect-allowed="move"
-							dnd-selected="models.selected = item"
-							ng-class="{'selected': models.selected === item}"
-							>
-							{{item.verb | uppercase}} {{item.path}}
-						</li>
-						<li ng-click="addPathModal()">
-							<spna class="glyphicon glyphicon-plus"></spna>
-						</li>
-					</ul>	
-				</div>
-			</div>
-		</div>
-		
-		<div class="col-md-6">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					Trash
-				</div>
-				<div class="panel-body">
-					<ul dnd-list="[]">
+       <div class="col-md-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col-md-10">
+                  Paths
+                </div>
+                <div class="col-md-2">
+                  <abbr title="Add a new scope" class="glyphicon glyphicon-plus" ng-click="addList()"></abbr>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body">
+              <ul dnd-list="list">
+                <!-- The dnd-draggable directive makes an element draggable and will
+                   transfer the object that was assigned to it. If an element was
+                   dragged away, you have to remove it from the original list
+                   yourself using the dnd-moved attribute -->
+                <li ng-repeat="item in models.paths"
+                  dnd-draggable="item"
+                  dnd-moved="list.splice($index, 1)"
+                  dnd-effect-allowed="copy"
+                  dnd-selected="models.selected = item"
+                  ng-class="{'selected': models.selected === item}"
+                  >
+                  <div class="row">
+                      <div class="col-md-10">
+                           {{item.verb | uppercase}} {{item.path}}  
+                      </div>
+                      <div class="col-md-2">
+                          <span class="glyphicon glyphicon-minus" ng-click="deletePath(this)"></span>
+                      </div>
+                  </div>
+                </li>
+                <li ng-click="addPathModal()">
+                  <spna class="glyphicon glyphicon-plus"></spna>
+                </li>
+              </ul> 
+            </div>
+          </div>
+       </div>
+       <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-4" ng-repeat="(listName, list) in models.scopes">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-md-9">
+                      Scope: {{listName}}
+                    </div>
+                    <div class="col-md-3">
+                      <span class="glyphicon glyphicon-minus" ng-click="deleteList(this)"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <ul dnd-list="list">
+                    <!-- The dnd-draggable directive makes an element draggable and will
+                       transfer the object that was assigned to it. If an element was
+                       dragged away, you have to remove it from the original list
+                       yourself using the dnd-moved attribute -->
+                    <li ng-repeat="item in list"
+                      dnd-draggable="item"
+                      dnd-moved="list.splice($index, 1)"
+                      dnd-effect-allowed="move"
+                      dnd-selected="models.selected = item"
+                      ng-class="{'selected': models.selected === item}"
+                      >
+                      {{item.verb | uppercase}} {{item.path}}
+                    </li>
+                  </ul> 
+                </div>
 
-					</ul>
-				</div>
-			</div>			
-		</div>
-		
-	</div>
-	<div class="row">
-		<div class="col-md-4" ng-repeat="(listName, list) in models.scopes">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<div class="row">
-						<div class="col-md-9">
-							{{listName}}
-						</div>
-						<div class="col-md-3">
-							<span class="glyphicon glyphicon-minus" ng-click="deleteList(this)"></span>
-						</div>
-					</div>
-				</div>
-				<div class="panel-body">
-					<ul dnd-list="list">
-						<!-- The dnd-draggable directive makes an element draggable and will
-							 transfer the object that was assigned to it. If an element was
-							 dragged away, you have to remove it from the original list
-							 yourself using the dnd-moved attribute -->
-						<li ng-repeat="item in list"
-							dnd-draggable="item"
-							dnd-moved="list.splice($index, 1)"
-							dnd-effect-allowed="move"
-							dnd-selected="models.selected = item"
-							ng-class="{'selected': models.selected === item}"
-							>
-							{{item.verb | uppercase}} {{item.path}}
-						</li>
-					</ul>	
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<pre>
-			{{modelAsJson}}
-		</pre>
-	</div>	
+              </div>
+            </div>
+          </div>
+       </div>
+    </div>
+    <div class="row">
+        <pre>
+            {{modelAsJson}}
+        </pre>
+    </div>
 </div>

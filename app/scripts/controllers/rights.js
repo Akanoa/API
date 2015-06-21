@@ -8,12 +8,12 @@
  * Controller of the apiApp
  */
 angular.module('apiApp')
-  .controller('RightsCtrl', function ($scope, ModalService) {
+  .controller('RightsCtrl', ['$scope', 'ModalService', function ($scope, ModalService) {
 	
     $scope.models = {
         selected: null,
-        paths: [{path: "/test", verb:"get"}],
-		scopes : {"admin" : []}
+        paths: [{path: '/test', verb:'get'}],
+		scopes : {'admin' : []}
     };
 
     // Model to JSON for demo purpose
@@ -23,8 +23,8 @@ angular.module('apiApp')
 	
 	$scope.addPathModal = function() {
 		ModalService.showModal({
-			templateUrl: "views/addPath.html",
-			controller: "ModalAddPathCtrl"
+			templateUrl: 'views/modals/rights/addPath.html',
+			controller: 'ModalAddPathCtrl'
 		}).then(function(modal) {
 			//it's a bootstrap element, use 'modal' to show it
 			modal.element.modal();
@@ -39,8 +39,8 @@ angular.module('apiApp')
 	
 	$scope.addList = function() {
 		ModalService.showModal({
-			templateUrl: "views/addScopeInRights.html",
-			controller: "ModalAddScopeInRightsCtrl"
+			templateUrl: 'views/modals/rights/addScope.html',
+			controller: 'ModalAddScopeInRightsCtrl'
 		}).then(function(modal) {
 			//it's a bootstrap element, use 'modal' to show it
 			modal.element.modal();
@@ -51,9 +51,13 @@ angular.module('apiApp')
 			});
 		});
 	};
+      
+    $scope.deletePath = function(path){
+        delete $scope.models.paths.splice(path.$index, 1);
+    };
 	
 	
 	$scope.deleteList = function(list){
 		delete $scope.models.scopes[list.listName];
 	};
-});
+}]);

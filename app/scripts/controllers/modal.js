@@ -1,7 +1,9 @@
+'use strict';
+
 angular.module('apiApp')
-  .controller('ModalAddPathCtrl', function($scope, close) {
+  .controller('ModalAddPathCtrl', ['$scope', 'close', function($scope, close) {
 	
-	$scope.verbs = ["get", "post", "put", "delete"];
+	$scope.verbs = ['get', 'post', 'put', 'delete'];
 	
 	$scope.path = null;
 	$scope.verb = null;
@@ -11,17 +13,15 @@ angular.module('apiApp')
 			result = {
 			  verb : $scope.verb,
 			  path : $scope.path
-			}
+			};
 		 }
  		 close(result, 500);
   	};
 
-});
+}]);
 
 angular.module('apiApp')
-  .controller('ModalAddScopeInRightsCtrl', function($scope, close) {
-	
-	$scope.verbs = ["get", "post", "put", "delete"];
+  .controller('ModalAddScopeInRightsCtrl', ['$scope', 'close', function($scope, close) {
 	
   	$scope.close = function(result) {
 		if(result){
@@ -30,4 +30,4 @@ angular.module('apiApp')
  		 close(result, 500);
   	};
 
-});
+}]);

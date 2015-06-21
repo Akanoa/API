@@ -73,6 +73,11 @@ body {
     max-width: 730px;
   }
 
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 100%;
+  }
+}
   /* Remove the padding we set earlier */
   .header,
   .marketing,
